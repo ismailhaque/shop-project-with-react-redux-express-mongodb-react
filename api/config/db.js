@@ -6,7 +6,7 @@ const mongoDBconnect = async () => {
 
     try {
 
-        const connection = await mongoose.connect(`mongodb+srv://admin:ismailhaque2956@cluster1.dmq14.mongodb.net/social?retryWrites=true&w=majority`);
+        const connection = await mongoose.connect(process.env.STRING);
         console.log('MongoDB connection successfully'.bgGreen.black);
         
     } catch (error) {
