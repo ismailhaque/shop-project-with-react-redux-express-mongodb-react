@@ -15,7 +15,7 @@ const SingleProduct = ({ single, handleSingleHide }) => {
                 <div className="single-product">
                     <div className="row">
                         <div className="col-md-6">
-                            <img src={`http://localhost:5050/images/products/${getSingleProduct.photo}`} alt="" />
+                            <img src={`/images/products/${getSingleProduct.photo}`} alt="" />
                         </div>
                         <div className="col-md-6">
                             <div className="single my-5">

@@ -12,3 +12,6 @@ export const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT"
 
 // product DELETE product
 export const DELETE_PRODUCT = "DELETE_PRODUCT"
+
+// product DELETE product
+export const ADDED_PRODUCT = "ADDED_PRODUCT"

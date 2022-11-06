@@ -1,5 +1,5 @@
 // product reducer
-import { DELETE_PRODUCT, GET_SINGLE_PRODUCT, PRODUCT_FAIL, PRODUCT_REQUEST, PRODUCT_SUCCESS } from "./actionType.js";
+import { ADDED_PRODUCT, DELETE_PRODUCT, GET_SINGLE_PRODUCT, PRODUCT_FAIL, PRODUCT_REQUEST, PRODUCT_SUCCESS } from "./actionType.js";
 import initialState from "./initialState.js";
 
 const productReducer = (state = initialState, {type, payload}) => {
@@ -35,6 +35,12 @@ const productReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 products : state.products.filter(data => data._id !== payload )
+            }
+
+        case ADDED_PRODUCT:
+            return {
+                ...state,
+                products : [...state.products, payload]
             }
     
         default:

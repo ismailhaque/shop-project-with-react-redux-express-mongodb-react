@@ -3,6 +3,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import createError from "./errorController.js";
 import productModels from '../models/productModels.js'
+import fs from 'fs'
+import path, { resolve } from 'path';
+
+
+// dirname
+const __dirname = resolve()
 
 
 /**
@@ -42,7 +48,7 @@ export const createProduct = async ( req, res, next ) => {
             gallary.push(req.files.gallary[i].filename)
         }
 
-        await productModels.create({
+        let product = await productModels.create({
             ...req.body,
             photo : req.files.photo[0].filename,
             gallary : gallary,
@@ -52,7 +58,8 @@ export const createProduct = async ( req, res, next ) => {
         
         res.status(200).json({
 
-            message : "Product create successfully"
+            message : "Product create successfully",
+            product : product
 
         });
 
@@ -109,6 +116,12 @@ export const createProduct = async ( req, res, next ) => {
     try {
 
         const product = await productModels.findByIdAndDelete( id );
+
+        fs.unlinkSync(path.join(__dirname, `api/public/images/products/${product.photo}`))
+
+        product.gallary.map(data => {
+            fs.unlinkSync(path.join(__dirname, `api/public/images/products/${data}`))
+        })
 
         res.status(200).json({
             message : 'product delete successfully'

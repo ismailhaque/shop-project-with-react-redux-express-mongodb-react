@@ -1,6 +1,6 @@
 import axios from "axios"
 import swal from "sweetalert"
-import { DELETE_PRODUCT, GET_SINGLE_PRODUCT, PRODUCT_FAIL, PRODUCT_REQUEST, PRODUCT_SUCCESS } from "./actionType.js"
+import { ADDED_PRODUCT, DELETE_PRODUCT, GET_SINGLE_PRODUCT, PRODUCT_FAIL, PRODUCT_REQUEST, PRODUCT_SUCCESS } from "./actionType.js"
 
 // PRODUCT GET REQUEST
 export const productRequest = () => {
@@ -58,13 +58,27 @@ export const getAllProduct = () => async (dispatch) => {
 
 // create product
 
-export const createProduct = (data) => async (dispatch) => {
+export const createProduct = (data, e, setInput) => async (dispatch) => {
 
     try {
 
            await axios.post('/api/product/', data).then(res => {
 
-                dispatch(getAllProduct(res.data))
+                dispatch({
+                    type : ADDED_PRODUCT,
+                    payload : res.data.product
+                })
+
+                setInput(() => ({
+                    name: '',
+                    r_price: '',
+                    s_price: '',
+                    stock: '',
+                    tage: [],
+                    category: [],
+                }))
+        
+                e.target.reset()
 
                 swal({
                     title: "Good job!",

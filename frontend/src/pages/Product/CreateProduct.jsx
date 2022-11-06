@@ -113,19 +113,7 @@ const CreateProduct = () => {
             data.append('gallary', input.gall[i]);
         }
 
-        dispatch(createProduct(data))
-
-
-        setInput(() => ({
-            name: '',
-            r_price: '',
-            s_price: '',
-            stock: '',
-            tage: [],
-            category: [],
-        }))
-
-        e.target.reset()
+        dispatch(createProduct(data, e, setInput))
 
     }
 
