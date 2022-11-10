@@ -5,11 +5,14 @@ import productRoute from './routes/productRoute.js';
 import mongoDBconnect from './config/db.js';
 import errorHandler from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
-import cors from 'cors'
+import cors from 'cors';
+import path, { resolve } from 'path'
 
 
 //  init express
 const app = express();
+
+const __dirname = resolve()
 
 dotenv.config();
 
@@ -31,6 +34,13 @@ app.use(`/api/product`, productRoute);
 // static 
 
 app.use(express.static('api/public'))
+app.use(express.static('build'))
+
+app.get('/', (req, res) => {
+
+    res.sendFile(path.join(__dirname, '/build/index.html'))
+
+})
 
 // use express error handler
 app.use( errorHandler );
